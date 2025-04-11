@@ -57,31 +57,31 @@ formbutton.addEventListener("click",()=>{
 
 
 closeform.addEventListener("click",()=>{
-    formdialog.closeModal();
+    formdialog.close();
 })
 
 const addBookForm = document.getElementById("addBookForm");
 
 addBookForm.addEventListener("submit", (e) => {
-    e.preventDefault(); 
+  e.preventDefault(); 
 
+  const formData = new FormData(addBookForm);
 
-    const author = e.get("author");
-    const title = e.get("title");
-    const pages = e.get("pages");
-    const readStatus = e.get("read-status");
+  const author = formData.get("author");
+  const title = formData.get("title");
+  const pages = formData.get("pages");
+  const readStatus = formData.get("read-status");
 
-    if (author && title && pages && readStatus) {
+  if (author && title && pages && readStatus) {
+      addBookToLibrary(author, title, pages, readStatus);
 
-        addBookToLibrary(author, title, pages, readStatus);
-        
-
-        formdialog.close();
-        addBookForm.reset();
-    } else {
-        alert("Please fill in all fields.");
-    }
+      formdialog.close();
+      addBookForm.reset();
+  } else {
+      alert("Please fill in all fields.");
+  }
 });
+
 
 
 displayBooks();
