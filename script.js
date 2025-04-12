@@ -26,7 +26,7 @@ function Book(author, title, pages, read_status) {
     const container = document.getElementById("book-container");
     container.innerHTML = ""; 
   
-    myLibrary.forEach(book => {
+    myLibrary.forEach((book, index) => {
       const bookdiv = document.createElement("div");
       bookdiv.style.border = "1px solid #ccc";
       bookdiv.style.margin = "10px";
@@ -39,6 +39,23 @@ function Book(author, title, pages, read_status) {
         <p><strong>Read Status:</strong> ${book.read_status}</p>
       `;
   
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "Remove";
+      removeBtn.style.marginTop = "10px";
+      removeBtn.addEventListener("click", () => {
+        myLibrary.splice(index, 1); // Remove from array
+        displayBooks(); // Re-render the list
+      });
+
+      const toggleBtn = document.createElement("button");
+      toggleBtn.textContent = "Toggle Read Status";
+      toggleBtn.addEventListener("click", () => {
+      book.read_status = book.read_status === "Read" ? "Not Read" : "Read";
+      displayBooks();
+    });
+
+      bookdiv.appendChild(toggleBtn)
+      bookdiv.appendChild(removeBtn);
       container.appendChild(bookdiv);
     });
   }
